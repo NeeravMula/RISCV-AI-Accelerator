@@ -3,6 +3,7 @@ module imm_gen(
     input wire[2:0] imm_sel,
     output reg[31:0] imm
 );
+
 always @(*) begin
     case(imm_sel)
         3'd0: imm = {{20{instr[31]}}, instr[31:20]};
@@ -13,7 +14,5 @@ always @(*) begin
         default: imm = 32'b0;
     endcase
 end
-
-
 
 endmodule
