@@ -1,4 +1,3 @@
-
 class alu_directed_sequence extends uvm_sequence #(alu_item);
 
     `uvm_object_utils(alu_directed_sequence)

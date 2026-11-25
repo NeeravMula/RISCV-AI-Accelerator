@@ -1,4 +1,3 @@
-
 class regfile_scoreboard extends uvm_scoreboard;
 
     `uvm_component_utils(regfile_scoreboard)

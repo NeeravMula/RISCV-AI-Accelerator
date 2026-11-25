@@ -1,4 +1,3 @@
-
 package regfile_pkg;
 
     timeunit 1ns;

@@ -1,4 +1,3 @@
-
 class regfile_driver extends uvm_driver #(regfile_item);
 
     `uvm_component_utils(regfile_driver)

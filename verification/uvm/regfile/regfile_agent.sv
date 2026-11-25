@@ -1,4 +1,3 @@
-
 class regfile_agent extends uvm_agent;
 
     `uvm_component_utils(regfile_agent)

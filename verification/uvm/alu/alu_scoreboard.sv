@@ -1,4 +1,3 @@
-
 class alu_scoreboard extends uvm_scoreboard;
 
     `uvm_component_utils(alu_scoreboard)
