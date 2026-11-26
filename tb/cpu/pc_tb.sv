@@ -77,13 +77,8 @@ module pc_tb;
         pc_next = 32'd0;
         redirect_addr = 32'd0;
 
-        if ($test$plusargs("WAVES")) begin
-            $dumpfile("build/pc.vcd");
-            $dumpvars(0, pc_tb);
-        end
 
-        check_pc(1, 0, 0, 32'h00000004,
-                          32'h00000100, 32'h00000000);
+        check_pc(1, 0, 0, 32'h00000004, 32'h00000100, 32'h00000000);
 
         if (pc_out_alt !== 32'h00001000)
             $fatal(1, "FAIL: Configurable reset address");
@@ -93,69 +88,56 @@ module pc_tb;
         $display("PASS: Initial reset and configurable reset address");
 
         for (int i = 1; i <= 10; i++) begin
-            check_pc(0, 0, 0, 32'(i * 4),
-                              32'd0, 32'(i * 4));
+            check_pc(0, 0, 0, 32'(i * 4), 32'd0, 32'(i * 4));
         end
 
         $display("PASS: Sequential advancement");
 
-        check_pc(0, 1, 0, 32'h0000002C,
-                          32'd0, 32'h00000028);
+        check_pc(0, 1, 0, 32'h0000002C, 32'd0, 32'h00000028);
 
         $display("PASS: Single-cycle stall");
 
         repeat (5) begin
-            check_pc(0, 1, 0, 32'h0000002C,
-                              32'd0, 32'h00000028);
+            check_pc(0, 1, 0, 32'h0000002C, 32'd0, 32'h00000028);
         end
 
         $display("PASS: Multiple-cycle stall");
 
-        check_pc(0, 0, 0, 32'h0000002C,
-                          32'd0, 32'h0000002C);
+        check_pc(0, 0, 0, 32'h0000002C, 32'd0, 32'h0000002C);
 
         $display("PASS: Stall release");
 
-        check_pc(0, 0, 1, 32'h00000030,
-                          32'h00000100, 32'h00000100);
+        check_pc(0, 0, 1, 32'h00000030, 32'h00000100, 32'h00000100);
 
         $display("PASS: Forward redirect");
 
-        check_pc(0, 0, 1, 32'h00000104,
-                          32'h00000020, 32'h00000020);
+        check_pc(0, 0, 1, 32'h00000104, 32'h00000020, 32'h00000020);
 
         $display("PASS: Backward redirect");
 
-        check_pc(0, 1, 1, 32'h00000024,
-                          32'h00000200, 32'h00000200);
+        check_pc(0, 1, 1, 32'h00000024, 32'h00000200, 32'h00000200);
 
         $display("PASS: Redirect overrides stall");
 
-        check_pc(1, 1, 0, 32'h00000204,
-                          32'd0, 32'h00000000);
+        check_pc(1, 1, 0, 32'h00000204, 32'd0, 32'h00000000);
 
         $display("PASS: Reset overrides stall");
 
-        check_pc(1, 0, 1, 32'h00000004,
-                          32'h00000300, 32'h00000000);
+        check_pc(1, 0, 1, 32'h00000004, 32'h00000300, 32'h00000000);
 
         $display("PASS: Reset overrides redirect");
 
-        check_pc(1, 1, 1, 32'h00000004,
-                          32'h00000400, 32'h00000000);
+        check_pc(1, 1, 1, 32'h00000004, 32'h00000400, 32'h00000000);
 
         $display("PASS: Reset overrides all controls");
 
-        check_pc(0, 0, 0, 32'h00000080,
-                          32'd0, 32'h00000080);
+        check_pc(0, 0, 0, 32'h00000080, 32'd0, 32'h00000080);
 
-        check_pc(1, 0, 0, 32'h00000084,
-                          32'd0, 32'h00000000);
+        check_pc(1, 0, 0, 32'h00000084, 32'd0, 32'h00000000);
 
         $display("PASS: Mid-execution reset");
 
-        check_pc(0, 0, 0, 32'h00000100,
-                          32'd0, 32'h00000100);
+        check_pc(0, 0, 0, 32'h00000100, 32'd0, 32'h00000100);
 
         @(negedge clk);
 
@@ -187,27 +169,21 @@ module pc_tb;
 
         $display("PASS: Clock-edge behavior and synchronous reset");
 
-        check_pc(0, 0, 0, 32'hFFFFFFFC,
-                          32'd0, 32'hFFFFFFFC);
+        check_pc(0, 0, 0, 32'hFFFFFFFC, 32'd0, 32'hFFFFFFFC);
 
-        check_pc(0, 0, 0, 32'h00000000,
-                          32'd0, 32'h00000000);
+        check_pc(0, 0, 0, 32'h00000000, 32'd0, 32'h00000000);
 
-        check_pc(0, 0, 1, 32'd0,
-                          32'hFFFFFFFF, 32'hFFFFFFFF);
+        check_pc(0, 0, 1, 32'd0, 32'hFFFFFFFF, 32'hFFFFFFFF);
 
         $display("PASS: Full-width address handling");
 
-        check_pc(0, 0, 0, 32'h12345678,
-                          32'd0, 32'h12345678);
+        check_pc(0, 0, 0, 32'h12345678, 32'd0, 32'h12345678);
 
         $display("PASS: Arbitrary next address");
 
-        check_pc(0, 0, 0, 32'h00000003,
-                          32'd0, 32'h00000003);
+        check_pc(0, 0, 0, 32'h00000003, 32'd0, 32'h00000003);
 
-        check_pc(0, 0, 1, 32'd0,
-                          32'h00000007, 32'h00000007);
+        check_pc(0, 0, 1, 32'd0, 32'h00000007, 32'h00000007);
 
         $display("PASS: No internal address masking");
 
@@ -220,6 +196,11 @@ module pc_tb;
     initial begin
         #10000;
         $fatal(1, "Simulation timeout");
+    end
+
+    initial begin
+        $dumpfile("build/pc.vcd");
+        $dumpvars(0, pc_tb);
     end
 
 endmodule
